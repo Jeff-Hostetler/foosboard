@@ -8,8 +8,8 @@
 
 <form method="post" action="/games">
     <label>
-        Team 1 Player 1
-        <select name="team1player1">
+        Team 1 Defense
+        <select name="team1defense">
             <option>EC</option>
             <option>TG</option>
             <option>NW</option>
@@ -19,8 +19,8 @@
         </select>
     </label>
     <label>
-        Team 1 Player 2
-        <select name="team1player2">
+        Team 1 Offense
+        <select name="team1offense">
             <option>EC</option>
             <option>TG</option>
             <option>NW</option>
@@ -30,8 +30,8 @@
         </select>
     </label>
     <label>
-        Team 2 Player 1
-        <select name="team2player1">
+        Team 2 Offense
+        <select name="team2offense">
             <option>EC</option>
             <option>TG</option>
             <option>NW</option>
@@ -41,8 +41,8 @@
         </select>
     </label>
     <label>
-        Team 2 Player 2
-        <select name="team2player2">
+        Team 2 Defense
+        <select name="team2defense">
             <option>EC</option>
             <option>TG</option>
             <option>NW</option>
@@ -94,12 +94,12 @@
     <tbody>
         {% for game in games %}
             <tr>
-                <td>{{game.team1player1}}</td>
-                <td>{{game.team1player2}}</td>
+                <td>{{game.team1defense}}</td>
+                <td>{{game.team1offense}}</td>
                 <td>{{game.team1score}}</td>
                 <td>{{game.team2score}}</td>
-                <td>{{game.team2player2}}</td>
-                <td>{{game.team2player1}}</td>
+                <td>{{game.team2offense}}</td>
+                <td>{{game.team2defense}}</td>
             </tr>
         {% endfor %}
     </tbody>
