@@ -54,8 +54,6 @@ def index():
 
 @app.route('/games', methods=['POST'])
 def create_game():
-    print request.form
-
     game = Game(request.form["team1defense"],
                 request.form["team1offense"],
                 request.form["team1score"],
@@ -67,6 +65,14 @@ def create_game():
 
     flash('Game submitted')
     return redirect("/")
+
+@app.route('/games/new', methods=['GET'])
+def new_game():
+    return render_template("games/new.html",
+                           team1defense=request.args["team1defense"],
+                           team1offense=request.args["team1offense"],
+                           team2defense=request.args["team2defense"],
+                           team2offense=request.args["team2offense"])
 
 port = os.getenv('VCAP_APP_PORT', '5000')
 if __name__ == "__main__":

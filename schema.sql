@@ -1,3 +1,5 @@
+CREATE DATABASE foosboard;
+
 CREATE TABLE games (
     id BIGSERIAL PRIMARY KEY,
     team1defense varchar,
