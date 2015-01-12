@@ -1,9 +1,9 @@
 <h1>foosboard</h1>
 
 {% with messages = get_flashed_messages() %}
-    {% for flash in messages %}
-        <p>{{ flash }}</p>
-    {% endfor %}
+{% for flash in messages %}
+<p>{{ flash }}</p>
+{% endfor %}
 {% endwith %}
 
 <form method="post" action="/games">
@@ -79,3 +79,28 @@
 
     <input type="submit" value="Submit">
 </form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Team 1 Defense</th>
+            <th>Team 1 Offense</th>
+            <th>Team 1 Score</th>
+            <th>Team 2 Score</th>
+            <th>Team 2 Offense</th>
+            <th>Team 2 Defense</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for game in games %}
+            <tr>
+                <td>{{game.team1player1}}</td>
+                <td>{{game.team1player2}}</td>
+                <td>{{game.team1score}}</td>
+                <td>{{game.team2score}}</td>
+                <td>{{game.team2player2}}</td>
+                <td>{{game.team2player1}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

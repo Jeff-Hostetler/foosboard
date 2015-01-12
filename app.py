@@ -1,10 +1,11 @@
+import os
 from flask import Flask, request, render_template, redirect, flash
 from flask.ext.sqlalchemy import SQLAlchemy
 
 class Config(object):
     DEBUG = True
     SECRET_KEY = 'foosball'
-    SQLALCHEMY_DATABASE_URI = 'postgresql://pivotal@localhost/foosboard'
+    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 
 app = Flask(__name__)
 app.config.from_object(Config())
@@ -48,7 +49,8 @@ class Game(db.Model):
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('index.html')
+    games = Game.query.all()
+    return render_template('index.html', games=games)
 
 @app.route('/games', methods=['POST'])
 def create_game():
