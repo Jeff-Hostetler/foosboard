@@ -1,5 +1,11 @@
 <h1>foosboard</h1>
 
+{% with messages = get_flashed_messages() %}
+    {% for flash in messages %}
+        <p>{{ flash }}</p>
+    {% endfor %}
+{% endwith %}
+
 <form method="post" action="/games">
     <label>
         Team 1 Player 1

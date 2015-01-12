@@ -1,8 +1,9 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect, flash
 from flask.ext.sqlalchemy import SQLAlchemy
 
 class Config(object):
     DEBUG = True
+    SECRET_KEY = 'foosball'
     SQLALCHEMY_DATABASE_URI = 'postgresql://pivotal@localhost/foosboard'
 
 app = Flask(__name__)
@@ -59,12 +60,11 @@ def create_game():
                 request.form["team2player1"],
                 request.form["team2player2"],
                 request.form["team2score"])
-    print "here"
     db.session.add(game)
-    print "now here"
     db.session.commit()
 
-    return render_template('index.html')
+    flash('Game submitted')
+    return redirect("/")
 
 if __name__ == "__main__":
     app.run()
