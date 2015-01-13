@@ -1,7 +1,6 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<h1>foosboard</h1>
 
 {% with messages = get_flashed_messages() %}
 {% for flash in messages %}
@@ -10,56 +9,64 @@
 {% endwith %}
 
 <form method="get" action="/games/new">
-    <label>
-        Team 1 Defense
-        <select name="team1defense">
-            <option>EC</option>
-            <option>TG</option>
-            <option>NW</option>
-            <option>BC</option>
-            <option>BB</option>
-            <option>EA</option>
-        </select>
-    </label>
-    <label>
-        Team 1 Offense
-        <select name="team1offense">
-            <option>EC</option>
-            <option>TG</option>
-            <option>NW</option>
-            <option>BC</option>
-            <option>BB</option>
-            <option>EA</option>
-        </select>
-    </label>
-    <label>
-        Team 2 Offense
-        <select name="team2offense">
-            <option>EC</option>
-            <option>TG</option>
-            <option>NW</option>
-            <option>BC</option>
-            <option>BB</option>
-            <option>EA</option>
-        </select>
-    </label>
-    <label>
-        Team 2 Defense
-        <select name="team2defense">
-            <option>EC</option>
-            <option>TG</option>
-            <option>NW</option>
-            <option>BC</option>
-            <option>BB</option>
-            <option>EA</option>
-        </select>
-    </label>
+    <div class="form-group">
+        <label>
+            Team 1 Defense
+            <select class="form-control" name="team1defense">
+                <option>EC</option>
+                <option>TG</option>
+                <option>NW</option>
+                <option>BC</option>
+                <option>BB</option>
+                <option>EA</option>
+            </select>
+        </label>
+        <label>
+            Team 1 Offense
+            <select class="form-control" name="team1offense">
+                <option>EC</option>
+                <option>TG</option>
+                <option>NW</option>
+                <option>BC</option>
+                <option>BB</option>
+                <option>EA</option>
+            </select>
+        </label>
+    </div>
 
-    <input type="submit" value="Start game">
+    <div class="form-group">
+        <label>
+            Team 2 Offense
+            <select class="form-control" name="team2offense">
+                <option>EC</option>
+                <option>TG</option>
+                <option>NW</option>
+                <option>BC</option>
+                <option>BB</option>
+                <option>EA</option>
+            </select>
+        </label>
+        <label>
+            Team 2 Defense
+            <select class="form-control" name="team2defense">
+                <option>EC</option>
+                <option>TG</option>
+                <option>NW</option>
+                <option>BC</option>
+                <option>BB</option>
+                <option>EA</option>
+            </select>
+        </label>
+    </div>
+
+    <div class="form-group">
+        <input class="btn btn-default" type="submit" value="Start game">
+    </div>
 </form>
 
-<table>
+<table class="table">
     <thead>
+
     <tr>
         <th>Team 1 Defense</th>
         <th>Team 1 Offense</th>
