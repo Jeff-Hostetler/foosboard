@@ -19,7 +19,7 @@ psql -d foosboard
 Make sure there are the following environment variables set.
 
 ```
-export DATABASE_URL="postgres://[your db username]@localhost/foosboard
+export DATABASE_URL="postgres://[your db username]@localhost/foosboard"
 export APP_SETTINGS="config.DevelopmentConfig"
 ```
 
