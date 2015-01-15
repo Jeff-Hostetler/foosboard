@@ -23,8 +23,8 @@ export DATABASE_URL="postgres://[your db username]@localhost/foosboard
 export APP_SETTINGS="config.DevelopmentConfig"
 ```
 
-Finally, start the server with a `DATABASE_URL` pointing to your development database:
+Finally, start the server.
 
 ```
-DATABASE_URL=postgres://myuser@localhost/foosboard python server.py
+python server.py
 ```
