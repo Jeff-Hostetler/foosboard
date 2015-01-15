@@ -16,6 +16,13 @@
             </h1>
         </a>
     </div>
+
+    {% with messages = get_flashed_messages() %}
+    {% for flash in messages %}
+    <div class="alert alert-success" role="alert">{{ flash }}</div>
+    {% endfor %}
+    {% endwith %}
+
     {% block body %}{% endblock %}
 </div>
 </body>

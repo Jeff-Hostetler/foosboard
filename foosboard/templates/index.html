@@ -2,12 +2,6 @@
 
 {% block body %}
 
-{% with messages = get_flashed_messages() %}
-{% for flash in messages %}
-<p>{{ flash }}</p>
-{% endfor %}
-{% endwith %}
-
 <form method="get" action="/games/new">
     <div class="form-group">
         <label>
@@ -64,7 +58,7 @@
     </div>
 </form>
 
-<table class="table">
+<table class="table table-hover table-bordered">
     <thead>
 
     <tr>
