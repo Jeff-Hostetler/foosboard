@@ -15,6 +15,6 @@ psql -d foosboard
 Finally, start the server with a `DATABASE_URL` pointing to your development database:
 
 ```
-DATABASE_URL=postgres://myuser@localhost/foosboard python run_server.py
+DATABASE_URL=postgres://myuser@localhost/foosboard python server.py
 ```
 
