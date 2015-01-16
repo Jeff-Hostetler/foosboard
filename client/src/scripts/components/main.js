@@ -1,13 +1,19 @@
-var FoosboardRoot = require('./FoosboardRoot');
-var React = require('react');
-var Router = require('react-router');
-var Route = Router.Route;
+'use strict';
+
+var App = require('./App'),
+  Dashboard = require('./Dashboard'),
+  Game = require('./Game'),
+  React = require('react'),
+  Router = require('react-router'),
+  Route = Router.Route,
+  DefaultRoute = Router.DefaultRoute;
 
 var content = document.getElementById('app');
 
 var Routes = (
-  <Route handler={FoosboardRoot}>
-    <Route name="/" handler={FoosboardRoot}/>
+  <Route name="app" path="/" handler={App}>
+    <Route name="game" path="/game" handler={Game} />
+    <DefaultRoute handler={Dashboard} />
   </Route>
 );
 

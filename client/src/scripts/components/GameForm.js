@@ -5,9 +5,9 @@ var React = require('react/addons');
 var GameForm = React.createClass({
   render: function () {
     function createPlayerInput(labelText, selectName, allPlayerInitials) {
-      var playerOptions = allPlayerInitials.map(function (initials) {
+      var playerOptions = allPlayerInitials.map(function (player) {
         return (
-          <option>{initials}</option>
+          <option>{player.name}</option>
         );
       });
 
@@ -25,14 +25,21 @@ var GameForm = React.createClass({
       );
     }
 
-    var allPlayers = ["EC", "TG", "NW", "BC", "BB", "EA"],
+    var allPlayers = [
+        {id: 1, name: "EC"},
+        {id: 2, name: "TG"},
+        {id: 3, name: "NW"},
+        {id: 4, name: "BC"},
+        {id: 5, name: "BB"},
+        {id: 6, name: "EA"}
+      ],
       team1Defense = createPlayerInput("Team 1 Defense", "team1defense", allPlayers),
       team1Offense = createPlayerInput("Team 1 Offense", "team1offense", allPlayers),
       team2Offense = createPlayerInput("Team 2 Offense", "team2defense", allPlayers),
       team2Defense = createPlayerInput("Team 2 Defense", "team2defense", allPlayers);
 
     return (
-      <form className="form-horizontal" method="get" action="/games/new">
+      <form className="form-horizontal" method="get" action="/#game">
         {team1Defense}
         {team1Offense}
         {team2Offense}

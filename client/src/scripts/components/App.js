@@ -1,9 +1,9 @@
 'use strict';
 
 var React = require('react/addons');
+var Router = require('react-router');
 var Header = require('./Header');
-var GameForm = require('./GameForm');
-var GameList = require('./GameList');
+var RouteHandler = Router.RouteHandler;
 
 // Export React so the devtools can find it
 (window !== window.top ? window.top : window).React = React;
@@ -11,16 +11,16 @@ var GameList = require('./GameList');
 // CSS
 require('../../styles/main.css');
 
-var FoosboardRoot = React.createClass({
+var App = React.createClass({
   render: function () {
     return (
       <div className="container">
         <Header />
-        <GameForm />
-        <GameList />
+
+        <RouteHandler />
       </div>
     );
   }
 });
 
-module.exports = FoosboardRoot;
+module.exports = App;
