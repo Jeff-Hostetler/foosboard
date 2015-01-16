@@ -1,13 +1,13 @@
-var ClientApp = require('./ClientApp');
+var FoosboardRoot = require('./FoosboardRoot');
 var React = require('react');
 var Router = require('react-router');
 var Route = Router.Route;
 
-var content = document.getElementById('content');
+var content = document.getElementById('app');
 
 var Routes = (
-  <Route handler={ClientApp}>
-    <Route name="/" handler={ClientApp}/>
+  <Route handler={FoosboardRoot}>
+    <Route name="/" handler={FoosboardRoot}/>
   </Route>
 );
 

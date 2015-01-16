@@ -7,21 +7,23 @@ var ReactTransitionGroup = React.addons.TransitionGroup;
 (window !== window.top ? window.top : window).React = React;
 
 // CSS
-require('../../styles/normalize.css');
 require('../../styles/main.css');
 
 var imageURL = require('../../images/yeoman.png');
 
-var ClientApp = React.createClass({
-  render: function() {
+var FoosboardRoot = React.createClass({
+  render: function () {
     return (
-      <div className='main'>
-        <ReactTransitionGroup transitionName="fade">
-          <img src={imageURL} />
-        </ReactTransitionGroup>
+      <div className="page-header">
+        <a href="/">
+          <h1>
+            Foosboard&nbsp;
+            <small>I totally meant to do that.&trade;</small>
+          </h1>
+        </a>
       </div>
     );
   }
 });
 
-module.exports = ClientApp;
+module.exports = FoosboardRoot;
