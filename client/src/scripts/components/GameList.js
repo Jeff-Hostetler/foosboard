@@ -1,29 +1,38 @@
 'use strict';
 
-var React = require('react/addons');
+var React = require('react/addons'),
+  GameService = require('../services/GameService');
 
 var GameList = React.createClass({
+  getInitialState: function () {
+    return {games: []};
+  },
+
+  componentDidMount: function () {
+    var _this = this;
+
+    GameService.getList()
+      .then(function (response) {
+        _this.setState({games: response.games});
+      });
+  },
+
   render: function () {
-    function renderAllGames(gameDate) {
-      return gameData.map(function (game) {
+    function renderAllGames(gameData) {
+      return gameData.map(function (game, index) {
         return (
-          <tr>
+          <tr key={index}>
             <td>{game.created_at}</td>
-            <td>{game.team1defense}</td>
-            <td>{game.team1offense}</td>
-            <td>{game.team1score}</td>
-            <td>{game.team2score}</td>
-            <td>{game.team2offense}</td>
-            <td>{game.team2defense}</td>
+            <td>{game.team_1.defense}</td>
+            <td>{game.team_1.offense}</td>
+            <td>{game.team_1_score}</td>
+            <td>{game.team_2_score}</td>
+            <td>{game.team_2.offense}</td>
+            <td>{game.team_2.defense}</td>
           </tr>
         );
       });
     }
-    var gameData = [
-      {id:1, created_at: (new Date()).toString(), team1offense: "EC", team1defense: "BB", team2offense: "NB", team2defense: "TG", team1score: 5, team2score: 1},
-      {id:2, created_at: (new Date()).toString(), team1offense: "BB", team1defense: "EC", team2offense: "TG", team2defense: "NB", team1score: 5, team2score: 3}
-    ],
-      allGames = renderAllGames(gameData);
 
     return (
       <table className="table table-hover table-bordered">
@@ -39,7 +48,7 @@ var GameList = React.createClass({
           </tr>
         </thead>
         <tbody>
-          {allGames}
+          {renderAllGames(this.state.games)}
         </tbody>
       </table>
     );

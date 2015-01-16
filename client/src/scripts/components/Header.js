@@ -1,6 +1,8 @@
 'use strict';
 
 var React = require('react/addons');
+var Route = require('react-router');
+var Link = Route.Link;
 
 // CSS
 require('../../styles/main.css');
@@ -9,12 +11,12 @@ var Header = React.createClass({
   render: function () {
     return (
       <div className="page-header">
-        <a href="/">
+        <Link to="/">
           <h1>
             Foosboard&nbsp;
             <small>I totally meant to do that.&trade;</small>
           </h1>
-        </a>
+        </Link>
       </div>
     );
   }

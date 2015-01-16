@@ -8,8 +8,8 @@ var Dashboard = React.createClass({
   render: function () {
     return (
       <div>
-        <GameForm />
-        <GameList />
+        <GameForm url='http://localhost:5000/api/games' />
+        <GameList url='http://localhost:5000/api/games' />
       </div>
     );
   }

@@ -11,12 +11,12 @@ var App = require('./App'),
 var content = document.getElementById('app');
 
 var Routes = (
-  <Route name="app" path="/" handler={App}>
-    <Route name="game" path="/game" handler={Game} />
+  <Route ref="appRouter" name="app" path="/" handler={App}>
+    <Route name="game" path="/games/:gameId" handler={Game} />
     <DefaultRoute handler={Dashboard} />
   </Route>
 );
 
-Router.run(Routes, function (Handler) {
+Router.run(Routes, Router.HistoryLocation, function (Handler) {
   React.render(<Handler/>, content);
 });
