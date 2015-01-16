@@ -7,59 +7,39 @@ require('../../styles/main.css');
 
 var GameForm = React.createClass({
   render: function () {
-    var allPlayers = ["EC", "TG", "NW", "BC", "BB", "EA"],
-      playerOptions = allPlayers.map(function (playerInitials) {
+    function createPlayerInput(labelText, selectName, allPlayerInitials) {
+      var playerOptions = allPlayerInitials.map(function (initials) {
         return (
-          <option>{playerInitials}</option>
+          <option>{initials}</option>
         );
       });
 
-
-    return (
-      <form className="form-horizontal" method="get" action="/games/new">
+      return (
         <div className="form-group">
-          <label className="col-sm-2 control-label">Team 1 Defense</label>
+          <label className="col-sm-2 control-label">{labelText}</label>
           <div>
             <div className="col-sm-2">
-              <select className="form-control" name="team1defense">
+              <select className="form-control" name={selectName}>
                 {playerOptions}
               </select>
             </div>
           </div>
         </div>
+      );
+    }
 
-        <div className="form-group">
-          <label className="col-sm-2 control-label">Team 1 Offense</label>
-          <div className="col-sm-2">
-            <select className="form-control" name="team1offense">
-              {playerOptions}
-            </select>
-          </div>
-        </div>
+    var allPlayers = ["EC", "TG", "NW", "BC", "BB", "EA"],
+      team1Defense = createPlayerInput("Team 1 Defense", "team1defense", allPlayers),
+      team1Offense = createPlayerInput("Team 1 Offense", "team1offense", allPlayers),
+      team2Offense = createPlayerInput("Team 2 Offense", "team2defense", allPlayers),
+      team2Defense = createPlayerInput("Team 2 Defense", "team2defense", allPlayers);
 
-        <div className="form-group">
-          <label className="col-sm-2 control-label">Team 2 Offense</label>
-          <div className="col-sm-2">
-            <select className="form-control" name="team2offense">
-              {playerOptions}
-            </select>
-          </div>
-        </div>
-
-        <div className="form-group">
-          <label className="col-sm-2 control-label">Team 2 Defense</label>
-          <div className="col-sm-2">
-            <select className="form-control" name="team2defense">
-             {playerOptions}
-            </select>
-          </div>
-        </div>
-
-        <div className="form-group">
-          <div className="col-sm-offset-2 col-sm-10">
-            <input className="btn btn-default" type="submit" value="Start game" />
-          </div>
-        </div>
+    return (
+      <form className="form-horizontal" method="get" action="/games/new">
+        {team1Defense}
+        {team1Offense}
+        {team2Offense}
+        {team2Defense}
       </form>
     );
   }
