@@ -1,7 +1,8 @@
 'use strict';
 
 var React = require('react/addons');
-var ReactTransitionGroup = React.addons.TransitionGroup;
+var Header = require('./Header');
+var GameForm = require('./GameForm');
 
 // Export React so the devtools can find it
 (window !== window.top ? window.top : window).React = React;
@@ -9,18 +10,12 @@ var ReactTransitionGroup = React.addons.TransitionGroup;
 // CSS
 require('../../styles/main.css');
 
-var imageURL = require('../../images/yeoman.png');
-
 var FoosboardRoot = React.createClass({
   render: function () {
     return (
-      <div className="page-header">
-        <a href="/">
-          <h1>
-            Foosboard&nbsp;
-            <small>I totally meant to do that.&trade;</small>
-          </h1>
-        </a>
+      <div className="container">
+        <Header />
+        <GameForm />
       </div>
     );
   }
