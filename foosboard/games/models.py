@@ -18,14 +18,26 @@ class Game(db.Model):
     def __init__(self,
                  team1defense,
                  team1offense,
-                 team1score,
                  team2offense,
-                 team2defense,
-                 team2score):
+                 team2defense):
         self.created_at = datetime.utcnow()
-        self.team2score = team2score
         self.team2defense = team2defense
         self.team2offense = team2offense
-        self.team1score = team1score
         self.team1defense = team1defense
         self.team1offense = team1offense
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "created_at": self.created_at,
+            "team_1_score": self.team1score,
+            "team_2_score": self.team2score,
+            "team_1": {
+                "offense": self.team1offense,
+                "defense": self.team1defense
+            },
+            "team_2": {
+                "offense": self.team2offense,
+                "defense": self.team2defense
+            }
+        }
