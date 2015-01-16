@@ -2,9 +2,6 @@
 
 var React = require('react/addons');
 
-// CSS
-require('../../styles/main.css');
-
 var GameForm = React.createClass({
   render: function () {
     function createPlayerInput(labelText, selectName, allPlayerInitials) {
@@ -40,6 +37,11 @@ var GameForm = React.createClass({
         {team1Offense}
         {team2Offense}
         {team2Defense}
+        <div className="form-group">
+          <div className="col-sm-offset-2 col-sm-10">
+            <input className="btn btn-default" type="submit" value="Start game" />
+          </div>
+        </div>
       </form>
     );
   }
