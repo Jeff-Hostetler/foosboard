@@ -1,3 +1,9 @@
 .idea
 *.pyc
 /.env
+
+# Client App specific
+
+node_modules/
+.tmp
+dist
