@@ -9,3 +9,5 @@ CREATE TABLE games (
     team1score integer,
     team2score integer
 );
+
+ALTER TABLE games ADD COLUMN created_at timestamp without time zone;

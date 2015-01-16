@@ -1,3 +1,4 @@
+from datetime import datetime
 from foosboard import db
 
 
@@ -6,6 +7,7 @@ class Game(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
 
+    created_at = db.Column(db.DateTime())
     team1defense = db.Column(db.String())
     team1offense = db.Column(db.String())
     team1score = db.Column(db.Integer())
@@ -13,7 +15,14 @@ class Game(db.Model):
     team2defense = db.Column(db.String())
     team2score = db.Column(db.Integer())
 
-    def __init__(self, team1defense, team1offense, team1score, team2offense, team2defense, team2score):
+    def __init__(self,
+                 team1defense,
+                 team1offense,
+                 team1score,
+                 team2offense,
+                 team2defense,
+                 team2score):
+        self.created_at = datetime.utcnow()
         self.team2score = team2score
         self.team2defense = team2defense
         self.team2offense = team2offense
