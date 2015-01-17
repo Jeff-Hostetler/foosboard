@@ -122,5 +122,5 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', ['clean', 'copy', 'webpack']);
 
-  grunt.registerTask('default', []);
+  grunt.registerTask('default', ['serve']);
 };
