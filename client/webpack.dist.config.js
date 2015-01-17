@@ -27,7 +27,7 @@ module.exports = {
 
   plugins: [
     new webpack.DefinePlugin({
-      SERVER_URL: JSON.stringify(process.env.__SERVER_URL__)
+      __SERVER_URL__: JSON.stringify(process.env.__SERVER_URL__)
     }),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin(),
