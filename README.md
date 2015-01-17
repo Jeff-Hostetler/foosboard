@@ -1,30 +1,50 @@
 # Foosboard
 
-Fooboard is a bare-bones app to track foosball scores.
+Fooboard is a bare-bones app to track foosball scores. It's split between a web client written in [React](http://facebook.github.io/react/) and an API server written in Python using [Flask](http://flask.pocoo.org/).
 
 ## Setting up for Development
 
-To start the Foosboard app locally, you will need to create a postgres database:
+To start the Foosboard app locally, you will need to create a postgres database. To do so, run all the SQL statements inside `server/schema.sql`.
+
+Now that the database is ready, you'll need to set the `DATABASE_URL` and `APP_SETTINGS` environment variables. To do so, simply run:
 
 ```
-createdb foosboard
+source server/.env.dev
 ```
 
-Next, connect to the databse and run all the SQL in `schema.sql`.
+Note that you may need to adjust the `DATABASE_URL` in `.env.dev` if your postgres user is different from your user name.
+
+Install dependencies with:
 
 ```
-psql -d foosboard
-````
-
-Make sure there are the following environment variables set.
-
-```
-export DATABASE_URL="postgres://[your db username]@localhost/foosboard"
-export APP_SETTINGS="config.DevelopmentConfig"
+pip install -r requirements.txt
 ```
 
-Finally, start the server.
+Now, the server is ready to go. To start it, run:
 
 ```
+cd server
 python server.py
 ```
+
+Next, we will need to start the web client.
+
+We'll need to set an environment variable to tell the client where to find the API server.
+
+```
+source client/.env.dev
+```
+
+With the environment set up correctly, we'll now install all necessary dependencies.
+
+```
+npm install
+```
+
+Next, within the `client` directory, launch the local Webpack development server:
+
+```
+grunt serve
+```
+
+This will open up the client on `localhost:9000`.
