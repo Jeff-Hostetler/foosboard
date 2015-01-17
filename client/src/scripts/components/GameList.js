@@ -22,7 +22,6 @@ var GameList = React.createClass({
       return gameData.map(function (game, index) {
         return (
           <tr key={index}>
-            <td>{game.created_at}</td>
             <td>{game.team_1.defense}</td>
             <td>{game.team_1.offense}</td>
             <td>{game.team_1_score}</td>
@@ -38,7 +37,6 @@ var GameList = React.createClass({
       <table className="table table-hover table-bordered">
         <thead>
           <tr>
-            <th>Date</th>
             <th>Team 1 Defense</th>
             <th>Team 1 Offense</th>
             <th>Team 1 Score</th>
