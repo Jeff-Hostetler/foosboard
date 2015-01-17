@@ -18,8 +18,8 @@ def api_create_game():
 
     return make_response(jsonify(game.serialize()), 201)
 
-@app.route('/api/games/<int:game_id>', methods=['PUT'])
 @cross_origin()
+@app.route('/api/games/<int:game_id>', methods=['PATCH'])
 def api_show_game(game_id):
     game = Game.query.get(game_id)
 
@@ -31,25 +31,25 @@ def api_show_game(game_id):
 
     return jsonify(game.serialize())
 
-@app.route('/api/games', methods=['GET'])
 @cross_origin()
+@app.route('/api/games', methods=['GET'])
 def api_index():
     games = Game.query.all()
     return jsonify({'games': [game.serialize() for game in games]})
 
-@app.route('/api/games/<int:game_id>', methods=['GET'])
 @cross_origin()
+@app.route('/api/games/<int:game_id>', methods=['GET'])
 def api_update_game(game_id):
     game = Game.query.get(game_id)
 
     return jsonify(game.serialize())
 
-@app.errorhandler(400)
 @cross_origin()
+@app.errorhandler(400)
 def not_found(_):
     return make_response(jsonify({'error': 'Bad request'}), 400)
 
-@app.errorhandler(404)
 @cross_origin()
+@app.errorhandler(404)
 def not_found(_):
     return make_response(jsonify({'error': 'Not found'}), 404)

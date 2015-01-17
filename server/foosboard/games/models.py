@@ -29,7 +29,6 @@ class Game(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "created_at": self.created_at,
             "team_1_score": self.team1score,
             "team_2_score": self.team2score,
             "team_1": {
