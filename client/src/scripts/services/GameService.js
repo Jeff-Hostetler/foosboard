@@ -1,6 +1,6 @@
 var Q = require("q"),
   Request = require("superagent"),
-  baseEndpoint = "http://localhost:5000/api/games";
+  baseEndpoint = __SERVER_URL__ + "/games";
 
 var GameService = {
   get: function (gameId) {

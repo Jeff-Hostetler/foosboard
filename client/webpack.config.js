@@ -18,8 +18,8 @@ module.exports = {
   debug: true,
   devtool: false,
   entry: [
-      'webpack/hot/only-dev-server',
-      './src/scripts/components/main.js'
+    'webpack/hot/only-dev-server',
+    './src/scripts/components/main.js'
   ],
 
   stats: {
@@ -52,6 +52,9 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.DefinePlugin({
+      __SERVER_URL__: JSON.stringify(process.env.SERVER_URL)
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ]
