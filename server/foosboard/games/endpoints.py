@@ -8,11 +8,11 @@ from foosboard.games.models import Game
 @cross_origin()
 @app.route('/api/games', methods=['POST'])
 def api_create_game():
-    print request.json
     game = Game(request.json["team1defense"],
                 request.json["team1offense"],
                 request.json["team2offense"],
                 request.json["team2defense"])
+
     db.session.add(game)
     db.session.commit()
 
@@ -25,6 +25,11 @@ def api_show_game(game_id):
 
     game.team1score = request.json["team1score"]
     game.team2score = request.json["team2score"]
+
+    if game.has_invalid_score:
+        return make_response(jsonify({
+            "error": "Game must have a 5 point score"
+            }), 422)
 
     db.session.add(game)
     db.session.commit()

@@ -26,6 +26,9 @@ class Game(db.Model):
         self.team1defense = team1defense
         self.team1offense = team1offense
 
+    def has_invalid_score(self):
+        return self.team1score == 5 or self.team2score == 5
+
     def serialize(self):
         return {
             "id": self.id,

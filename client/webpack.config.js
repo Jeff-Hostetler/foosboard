@@ -53,7 +53,7 @@ module.exports = {
 
   plugins: [
     new webpack.DefinePlugin({
-      __SERVER_URL__: JSON.stringify(process.env.SERVER_URL)
+      __SERVER_URL__: JSON.stringify(process.env.__SERVER_URL__)
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
