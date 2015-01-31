@@ -3,7 +3,7 @@ from flask import Flask
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 
-if os.environ['FLASK_ENV'] == 'test':
+if os.environ.get('FLASK_ENV', None) == 'test':
     app_settings = 'config.TestConfig'
 else:
     app_settings = 'config.DevelopmentConfig'
