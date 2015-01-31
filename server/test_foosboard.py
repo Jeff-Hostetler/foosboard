@@ -4,7 +4,7 @@ from foosboard import app, db
 from foosboard.models import Game
 
 
-class FoosboardTestCase(unittest.TestCase):
+class FoosboardApiTestCase(unittest.TestCase):
 
     def setUp(self):
         self.app = app
@@ -110,7 +110,6 @@ class FoosboardTestCase(unittest.TestCase):
         }
 
         self.assertEqual(json.loads(rv.data), expected_response)
-
 
 if __name__ == '__main__':
     unittest.main()
