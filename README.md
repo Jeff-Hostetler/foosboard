@@ -4,7 +4,12 @@ Fooboard is a bare-bones app to track foosball scores. It's split between a web 
 
 ## Setting up for Development
 
-To start the Foosboard app locally, you will need to create a postgres database. To do so, run all the SQL statements inside `server/schema.sql`.
+To start the Foosboard app locally, you will need to create a postgres database and migrate it.
+
+```
+createdb foosboard
+python manage.py db upgrade
+```
 
 Now that the database is ready, you'll need to set the `DATABASE_URL` and `APP_SETTINGS` environment variables. To do so, simply run:
 
