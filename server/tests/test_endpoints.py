@@ -1,5 +1,6 @@
 import unittest
 import json
+
 from foosboard_test_case import FoosboardTestCase
 from foosboard import app, db
 from foosboard.models import Game

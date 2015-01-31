@@ -65,5 +65,5 @@ createdb foosboard_test
 Next, within the `server` directory, run all tests with:
 
 ```
-FLASK_ENV=test python test/test_endpoints.py
+FLASK_ENV=test nosetests
 ```
