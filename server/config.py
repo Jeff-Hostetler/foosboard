@@ -8,11 +8,6 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 
 
-class ProductionConfig(Config):
-    ENVIRONMENT = 'production'
-    DEBUG = False
-
-
 class DevelopmentConfig(Config):
     ENVIRONMENT = 'development'
     DEVELOPMENT = True
@@ -22,3 +17,4 @@ class DevelopmentConfig(Config):
 class TestConfig(Config):
     ENVIRONMENT = 'test'
     TESTING = True
+    SQLALCHEMY_DATABASE_URI = os.environ['TEST_DATABASE_URL']
