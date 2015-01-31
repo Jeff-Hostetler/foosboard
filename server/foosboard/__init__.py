@@ -9,4 +9,4 @@ CORS(app, resources=r'/api/*', allow_headers='Content-Type')
 
 db = SQLAlchemy(app)
 
-import games.endpoints
+import endpoints
