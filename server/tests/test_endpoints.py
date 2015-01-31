@@ -1,10 +1,11 @@
 import unittest
 import json
+from foosboard_test_case import FoosboardTestCase
 from foosboard import app, db
 from foosboard.models import Game
 
 
-class FoosboardApiTestCase(unittest.TestCase):
+class EndpointsTestCase(FoosboardTestCase):
 
     def setUp(self):
         self.app = app
