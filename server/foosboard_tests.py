@@ -44,5 +44,30 @@ class FoosboardTestCase(unittest.TestCase):
 
         self.assertEqual(json.loads(rv.data), expected_response)
 
+    def test_creating_a_game(self):
+        payload = {
+            'team1defense': 'EC',
+            'team1offense': 'TG',
+            'team2offense': 'BB',
+            'team2defense': 'NB'
+        }
+
+        rv = self.client.post('/api/games',
+                              headers={'Accept': 'application/json',
+                                       'Content-Type': 'application/json'},
+                              data=json.dumps(payload))
+
+        expected_response = {
+            'id': 1,
+            'team_1_score': None,
+            'team_2_score': None,
+            'team_1': {'offense': 'TG', 'defense': 'EC'},
+            'team_2': {'offense': 'BB', 'defense': 'NB'}
+        }
+
+        self.assertEqual(rv.status, '201 CREATED')
+        self.assertEqual(json.loads(rv.data), expected_response)
+
+
 if __name__ == '__main__':
     unittest.main()
