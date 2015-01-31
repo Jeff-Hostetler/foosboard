@@ -3,6 +3,22 @@ from flask_cors import cross_origin
 from foosboard.models import Game
 from foosboard import app, db
 
+
+@cross_origin()
+@app.route('/api/games', methods=['GET'])
+def api_index():
+    games = Game.query.all()
+    return jsonify({'games': [game.serialize() for game in games]})
+
+
+@cross_origin()
+@app.route('/api/games/<int:game_id>', methods=['GET'])
+def api_update_game(game_id):
+    game = Game.query.get(game_id)
+
+    return jsonify(game.serialize())
+
+
 @cross_origin()
 @app.route('/api/games', methods=['POST'])
 def api_create_game():
@@ -15,6 +31,7 @@ def api_create_game():
     db.session.commit()
 
     return make_response(jsonify(game.serialize()), 201)
+
 
 @cross_origin()
 @app.route('/api/games/<int:game_id>', methods=['PATCH'])
@@ -29,23 +46,12 @@ def api_show_game(game_id):
 
     return jsonify(game.serialize())
 
-@cross_origin()
-@app.route('/api/games', methods=['GET'])
-def api_index():
-    games = Game.query.all()
-    return jsonify({'games': [game.serialize() for game in games]})
-
-@cross_origin()
-@app.route('/api/games/<int:game_id>', methods=['GET'])
-def api_update_game(game_id):
-    game = Game.query.get(game_id)
-
-    return jsonify(game.serialize())
 
 @cross_origin()
 @app.errorhandler(400)
-def not_found(_):
+def bad_request(_):
     return make_response(jsonify({'error': 'Bad request'}), 400)
+
 
 @cross_origin()
 @app.errorhandler(404)
