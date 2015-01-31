@@ -53,3 +53,17 @@ grunt serve
 ```
 
 This will open up the client on `localhost:9000`.
+
+## Running Tests
+
+Both the server and the client have a test suite. The server expects a `foosboard_test` database to exist. If necessary, create the test database with:
+
+```
+createdb foosboard_test
+```
+
+Next, within the `server` directory, run all tests with:
+
+```
+FLASK_ENV=test python test/test_endpoints.py
+```
