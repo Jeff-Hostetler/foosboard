@@ -17,6 +17,9 @@ var Header = React.createClass({
             <small>I totally meant to do that.&trade;</small>
           </h1>
         </Link>
+        <Link to="status">
+          Status
+        </Link>
       </div>
     );
   }

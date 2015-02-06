@@ -41,7 +41,8 @@ class EndpointsTestCase(FoosboardTestCase):
             'team_1_score': 3,
             'team_2_score': 5,
             'team_1': {'offense': 'BB', 'defense': 'EC'},
-            'team_2': {'offense': 'TG', 'defense': 'NB'}
+            'team_2': {'offense': 'TG', 'defense': 'NB'},
+            'in_progress': True
         }]}
 
         self.assertEqual(json.loads(rv.data), expected_response)
@@ -64,7 +65,8 @@ class EndpointsTestCase(FoosboardTestCase):
             'team_1_score': None,
             'team_2_score': None,
             'team_1': {'offense': 'TG', 'defense': 'EC'},
-            'team_2': {'offense': 'BB', 'defense': 'NB'}
+            'team_2': {'offense': 'BB', 'defense': 'NB'},
+            'in_progress': True
         }
 
         self.assertEqual(rv.status, '201 CREATED')
@@ -86,7 +88,8 @@ class EndpointsTestCase(FoosboardTestCase):
             'team_1_score': 3,
             'team_2_score': 5,
             'team_1': {'offense': 'BB', 'defense': 'EC'},
-            'team_2': {'offense': 'TG', 'defense': 'NB'}
+            'team_2': {'offense': 'TG', 'defense': 'NB'},
+            'in_progress': True
         }
 
         self.assertEqual(json.loads(rv.data), expected_response)
@@ -108,7 +111,8 @@ class EndpointsTestCase(FoosboardTestCase):
             'team_1_score': 5,
             'team_2_score': 0,
             'team_1': {'offense': 'BB', 'defense': 'EC'},
-            'team_2': {'offense': 'TG', 'defense': 'NB'}
+            'team_2': {'offense': 'TG', 'defense': 'NB'},
+            'in_progress': False
         }
 
         self.assertEqual(json.loads(rv.data), expected_response)

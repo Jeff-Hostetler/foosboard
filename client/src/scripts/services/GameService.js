@@ -38,6 +38,23 @@ var GameService = {
     return deferred.promise;
   },
 
+  getStatus: function () {
+    var deferred = Q.defer(),
+      url = __SERVER_URL__ + '/status';
+
+    Request
+      .get(url)
+      .end(function (response) {
+        if (response.status === 200) {
+          deferred.resolve(response.body);
+        } else {
+          deferred.reject(response.body);
+        }
+      });
+
+    return deferred.promise;
+  },
+
   getList: function () {
     var deferred = Q.defer(),
       url = baseEndpoint;

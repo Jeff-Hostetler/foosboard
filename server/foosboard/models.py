@@ -15,6 +15,7 @@ class Game(db.Model):
     team2offense = db.Column(db.String())
     team2defense = db.Column(db.String())
     team2score = db.Column(db.Integer())
+    inProgress = db.Column(db.Boolean())
 
     def __init__(self,
                  team1defense,
@@ -26,6 +27,7 @@ class Game(db.Model):
         self.team2offense = team2offense
         self.team1defense = team1defense
         self.team1offense = team1offense
+        self.inProgress = True
 
     def has_invalid_score(self):
         return self.team1score == 5 or self.team2score == 5
@@ -42,5 +44,6 @@ class Game(db.Model):
             "team_2": {
                 "offense": self.team2offense,
                 "defense": self.team2defense
-            }
+            },
+            "in_progress": self.inProgress
         }

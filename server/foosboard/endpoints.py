@@ -40,12 +40,20 @@ def api_show_game(game_id):
 
     game.team1score = request.json["team1score"]
     game.team2score = request.json["team2score"]
+    game.inProgress = False
 
     db.session.add(game)
     db.session.commit()
 
     return jsonify(game.serialize())
 
+@cross_origin()
+@app.route('/api/status', methods=['GET'])
+def api_show_status():
+    if(Game.query.filter_by(inProgress=True).first()):
+        return jsonify({'status': 'In Progress'})
+    else:
+        return jsonify({'status': 'Open'})
 
 @cross_origin()
 @app.errorhandler(400)

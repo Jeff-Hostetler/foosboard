@@ -4,7 +4,7 @@ from flask.ext.migrate import Migrate, MigrateCommand
 
 from foosboard import app, db
 
-if os.environ['FLASK_ENV'] == 'test':
+if os.getenv('FLASK_ENV', 'development') == 'test':
     app_settings = 'config.TestConfig'
 else:
     app_settings = 'config.DevelopmentConfig'
