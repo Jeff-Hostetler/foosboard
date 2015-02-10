@@ -1,6 +1,6 @@
 from flask import request, make_response, jsonify
 from flask_cors import cross_origin
-from foosboard.models import Game
+from foosboard.models import Game, Player
 from foosboard import app, db
 
 
@@ -9,6 +9,13 @@ from foosboard import app, db
 def api_index():
     games = Game.query.all()
     return jsonify({'games': [game.serialize() for game in games]})
+
+
+@cross_origin()
+@app.route('/api/players', methods=['GET'])
+def api_player_index():
+    games = Player.query.all()
+    return jsonify({'players': [game.serialize() for game in games]})
 
 
 @cross_origin()
@@ -22,10 +29,10 @@ def api_update_game(game_id):
 @cross_origin()
 @app.route('/api/games', methods=['POST'])
 def api_create_game():
-    game = Game(request.json["team1defense"],
-                request.json["team1offense"],
-                request.json["team2offense"],
-                request.json["team2defense"])
+    game = Game(request.json["team1defense_id"],
+                request.json["team1offense_id"],
+                request.json["team2offense_id"],
+                request.json["team2defense_id"])
 
     db.session.add(game)
     db.session.commit()

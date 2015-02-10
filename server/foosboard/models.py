@@ -9,24 +9,24 @@ class Game(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     created_at = db.Column(db.DateTime())
-    team1defense = db.Column(db.String())
-    team1offense = db.Column(db.String())
+    team1defense_id = db.Column(db.Integer(), db.ForeignKey('players.id'))
+    team1offense_id = db.Column(db.Integer(), db.ForeignKey('players.id'))
     team1score = db.Column(db.Integer())
-    team2offense = db.Column(db.String())
-    team2defense = db.Column(db.String())
+    team2offense_id = db.Column(db.Integer(), db.ForeignKey('players.id'))
+    team2defense_id = db.Column(db.Integer(), db.ForeignKey('players.id'))
     team2score = db.Column(db.Integer())
     inProgress = db.Column(db.Boolean())
 
     def __init__(self,
-                 team1defense,
-                 team1offense,
-                 team2offense,
-                 team2defense):
+                 team1defense_id,
+                 team1offense_id,
+                 team2offense_id,
+                 team2defense_id):
         self.created_at = datetime.utcnow()
-        self.team2defense = team2defense
-        self.team2offense = team2offense
-        self.team1defense = team1defense
-        self.team1offense = team1offense
+        self.team2defense_id = team2defense_id
+        self.team2offense_id = team2offense_id
+        self.team1defense_id = team1defense_id
+        self.team1offense_id = team1offense_id
         self.inProgress = True
 
     def has_invalid_score(self):
@@ -38,12 +38,32 @@ class Game(db.Model):
             "team_1_score": self.team1score,
             "team_2_score": self.team2score,
             "team_1": {
-                "offense": self.team1offense,
-                "defense": self.team1defense
+                "offense": Player.query.get(self.team1offense_id).initials,
+                "defense": Player.query.get(self.team1defense_id).initials
             },
             "team_2": {
-                "offense": self.team2offense,
-                "defense": self.team2defense
+                "offense": Player.query.get(self.team2offense_id).initials,
+                "defense": Player.query.get(self.team2defense_id).initials
             },
             "in_progress": self.inProgress
+        }
+
+
+class Player(db.Model):
+    __tablename__ = 'players'
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    created_at = db.Column(db.DateTime())
+    initials = db.Column(db.String())
+
+    def __init__(self,
+                 initials):
+        self.created_at = datetime.utcnow()
+        self.initials = initials
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "initials": self.initials
         }

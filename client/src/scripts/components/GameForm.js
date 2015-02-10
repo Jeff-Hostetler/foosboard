@@ -3,14 +3,9 @@
 var React = require('react/addons');
 var Navigation = require('react-router').Navigation;
 var GameService = require('../services/GameService');
+var PlayerService = require('../services/PlayerService');
 
 var PlayerSelect = React.createClass({
-  getInitialState: function () {
-    return {
-      value: "EC"
-    };
-  },
-
   onChange: function (event) {
     this.setState({value: event.target.value});
   },
@@ -18,7 +13,7 @@ var PlayerSelect = React.createClass({
   render: function () {
     var playerOptions = this.props.allPlayers.map(function (player, index) {
       return (
-        <option key={index} value={player.name}>{player.name}</option>
+        <option key={index} value={player.id}>{player.initials}</option>
       );
     });
 
@@ -27,7 +22,8 @@ var PlayerSelect = React.createClass({
         <label className="col-sm-2 control-label">{this.props.label}</label>
         <div>
           <div className="col-sm-2">
-            <select className="form-control" onChange={this.onChange} value={this.state.value} name={this.props.name}>
+            <select className="form-control" onChange={this.onChange} name={this.props.name}>
+                <option disabled="disabled"></option>
                 {playerOptions}
             </select>
           </div>
@@ -44,10 +40,10 @@ var GameForm = React.createClass({
     e.preventDefault();
 
     var newGame = {
-      team1defense: this.refs.team1defense.state.value,
-      team1offense: this.refs.team1offense.state.value,
-      team2offense: this.refs.team2offense.state.value,
-      team2defense: this.refs.team2defense.state.value
+      team1defense_id: this.refs.team1defense.state.value,
+      team1offense_id: this.refs.team1offense.state.value,
+      team2offense_id: this.refs.team2offense.state.value,
+      team2defense_id: this.refs.team2defense.state.value
     },
       _this = this;
 
@@ -58,42 +54,43 @@ var GameForm = React.createClass({
       });
   },
 
-  getDefaultProps: function () {
+  getInitialState: function () {
     return {
-      allPlayers: [
-        {id: 1, name: "EC"},
-        {id: 2, name: "TG"},
-        {id: 3, name: "NW"},
-        {id: 4, name: "BC"},
-        {id: 5, name: "BB"},
-        {id: 6, name: "EA"}
-      ]
+      players: []
     };
+  },
+
+  componentDidMount: function () {
+    var _this = this;
+
+    PlayerService.getList().then(function (result) {
+      _this.setState({players: result});
+    });
   },
 
   render: function () {
     return (
       <form ref="gameForm" className="form-horizontal" onSubmit={this.handleSubmit}>
         <PlayerSelect
-          allPlayers={this.props.allPlayers}
+          allPlayers={this.state.players}
           ref="team1defense"
           name='team1defense'
           label='Team 1 Defense' />
 
         <PlayerSelect
-          allPlayers={this.props.allPlayers}
+          allPlayers={this.state.players}
           ref="team1offense"
           name='team1offense'
           label='Team 1 Offense' />
 
         <PlayerSelect
-          allPlayers={this.props.allPlayers}
+          allPlayers={this.state.players}
           ref="team2offense"
           name='team1defense'
           label='Team 2 Offense' />
 
         <PlayerSelect
-          allPlayers={this.props.allPlayers}
+          allPlayers={this.state.players}
           ref="team2defense"
           name='team1defense'
           label='Team 2 Defense' />

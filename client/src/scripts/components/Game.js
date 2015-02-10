@@ -21,7 +21,7 @@ var ScoreSelect = React.createClass({
   render: function () {
     return (
       <div className="form-group">
-        <label> Team 2 Score </label>
+        <label> {this.props.title} </label>
         <select className="form-control" name={this.props.name} value={this.state.finalScore} onChange={this.updateScore}>
           <option>0</option>
           <option>1</option>
@@ -119,10 +119,12 @@ var Game = React.createClass({
 
         <form ref="scoreForm" onSubmit={this.handleSubmit}>
           <ScoreSelect
+            title='Team 1 Score'
             name='team1score'
             ref='team1score' />
 
           <ScoreSelect
+            title='Team 2 Score'
             name='team2score'
             ref='team2score' />
 
