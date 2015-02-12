@@ -9,10 +9,12 @@ var Status = React.createClass({
   componentDidMount: function () {
     var _this = this;
 
-    GameService.getStatus()
-      .then(function (response) {
-        _this.setState({status: response.status});
-      });
+    setInterval(function () {
+      GameService.getStatus()
+        .then(function (response) {
+          _this.setState({status: response.status});
+        });
+    }, 1000);
   },
 
   render: function () {
