@@ -38,12 +38,12 @@ class Game(db.Model):
             "team_1_score": self.team1score,
             "team_2_score": self.team2score,
             "team_1": {
-                "offense": Player.query.get(self.team1offense_id).initials,
-                "defense": Player.query.get(self.team1defense_id).initials
+                "offense": Player.query.get(self.team1offense_id).nickname,
+                "defense": Player.query.get(self.team1defense_id).nickname
             },
             "team_2": {
-                "offense": Player.query.get(self.team2offense_id).initials,
-                "defense": Player.query.get(self.team2defense_id).initials
+                "offense": Player.query.get(self.team2offense_id).nickname,
+                "defense": Player.query.get(self.team2defense_id).nickname
             },
             "in_progress": self.inProgress
         }
@@ -55,15 +55,15 @@ class Player(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     created_at = db.Column(db.DateTime())
-    initials = db.Column(db.String())
+    nickname = db.Column(db.String())
 
     def __init__(self,
-                 initials):
+                 nickname):
         self.created_at = datetime.utcnow()
-        self.initials = initials
+        self.nickname = nickname
 
     def serialize(self):
         return {
             "id": self.id,
-            "initials": self.initials
+            "nickname": self.nickname
         }
