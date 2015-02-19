@@ -13,7 +13,7 @@ var PlayerSelect = React.createClass({
   render: function () {
     var playerOptions = this.props.allPlayers.map(function (player, index) {
       return (
-        <option key={index} value={player.id}>{player.initials}</option>
+        <option key={index} value={player.id}>{player.nickname}</option>
       );
     });
 

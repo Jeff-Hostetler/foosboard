@@ -3,7 +3,7 @@ var React = require('react'),
 
 var Status = React.createClass({
   getInitialState: function () {
-    return {status: 'In Progress'};
+    return {status: 'Open'};
   },
 
   componentDidMount: function () {
