@@ -1,6 +1,8 @@
 var React = require('react'),
   GameService = require('../services/GameService');
 
+var interval;
+
 var Status = React.createClass({
   getInitialState: function () {
     return {status: 'Open'};
@@ -9,12 +11,16 @@ var Status = React.createClass({
   componentDidMount: function () {
     var _this = this;
 
-    setInterval(function () {
+    interval = setInterval(function () {
       GameService.getStatus()
         .then(function (response) {
           _this.setState({status: response.status});
         });
     }, 1000);
+  },
+
+  componentWillUnmount: function () {
+    clearInterval(interval);
   },
 
   render: function () {

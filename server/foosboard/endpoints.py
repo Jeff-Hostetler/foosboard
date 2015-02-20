@@ -1,6 +1,7 @@
 from flask import request, make_response, jsonify
 from flask_cors import cross_origin
 from foosboard.models import Game, Player
+from foosboard.repositories import GameRepository
 from foosboard import app, db
 
 
@@ -14,8 +15,8 @@ def api_index():
 @cross_origin()
 @app.route('/api/players', methods=['GET'])
 def api_player_index():
-    games = Player.query.all()
-    return jsonify({'players': [game.serialize() for game in games]})
+    players = Player.query.all()
+    return jsonify({'players': [player.serialize() for player in players]})
 
 
 @cross_origin()
@@ -61,6 +62,23 @@ def api_show_status():
         return jsonify({'status': 'In Progress'})
     else:
         return jsonify({'status': 'Open'})
+
+@cross_origin()
+@app.route('/api/stats', methods=['GET'])
+def api_show_stats():
+    players = Player.query.all()
+    return jsonify({
+        'stats':
+            [
+                {
+                    'nickname': player.nickname,
+                    'win_percentage': GameRepository().win_percentage_for_player_id(player.id),
+                    'goals_scored': GameRepository().goals_scored_for_player_id(player.id),
+                    'goals_against': GameRepository().goals_against_for_player_id(player.id)
+                }
+                for player in players
+            ]
+    })
 
 @cross_origin()
 @app.errorhandler(400)

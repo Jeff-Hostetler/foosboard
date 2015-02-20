@@ -10,17 +10,30 @@ require('../../styles/main.css');
 var Header = React.createClass({
   render: function () {
     return (
-      <div className="page-header">
-        <Link to="/">
-          <h1>
-            Foosboard&nbsp;
-            <small>I totally meant to do that.&trade;</small>
-          </h1>
-        </Link>
-        <Link to="status">
-          Status
-        </Link>
-      </div>
+      <nav className="navbar navbar-default">
+        <div className="container-fluid">
+          <div className="navbar-header">
+            <Link className="navbar-brand" to="/">
+              Foosboard&nbsp;
+              <small>I totally meant to do that.&trade;</small>
+            </Link>
+
+            <ul className="nav navbar-nav">
+              <li>
+                <Link to="status">
+                  Status
+                </Link>
+              </li>
+
+              <li>
+                <Link to="stats">
+                  Stats
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
     );
   }
 });
