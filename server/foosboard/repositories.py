@@ -18,7 +18,10 @@ class GameRepository():
             player_id
         ).fetchone()[0]
 
-        return wins * 100 / total_games
+        if total_games == 0:
+            return 0
+        else:
+            return wins * 100 / total_games
 
     def goals_scored_for_player_id(self, player_id):
         goals_scored = db.engine.execute(
