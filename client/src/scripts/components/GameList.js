@@ -3,6 +3,10 @@
 var React = require('react/addons'),
   GameService = require('../services/GameService');
 
+function isWinner(score) {
+  return score === 5;
+}
+
 var GameList = React.createClass({
   getInitialState: function () {
     return {games: []};
@@ -22,12 +26,12 @@ var GameList = React.createClass({
       return gameData.map(function (game, index) {
         return (
           <tr key={index}>
-            <td>{game.team_1.defense}</td>
-            <td>{game.team_1.offense}</td>
-            <td>{game.team_1_score}</td>
-            <td>{game.team_2_score}</td>
-            <td>{game.team_2.offense}</td>
-            <td>{game.team_2.defense}</td>
+            <td className={isWinner(game.team_1_score) ? "info" : ""}>{game.team_1.defense}</td>
+            <td className={isWinner(game.team_1_score) ? "info" : ""}>{game.team_1.offense}</td>
+            <td className={isWinner(game.team_1_score) ? "info" : ""}>{game.team_1_score}</td>
+            <td className={isWinner(game.team_2_score) ? "info" : ""}>{game.team_2_score}</td>
+            <td className={isWinner(game.team_2_score) ? "info" : ""}>{game.team_2.offense}</td>
+            <td className={isWinner(game.team_2_score) ? "info" : ""}>{game.team_2.defense}</td>
           </tr>
         );
       });
