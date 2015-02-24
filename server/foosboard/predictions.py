@@ -1,12 +1,16 @@
-from sklearn import svm
+from sklearn import cross_validation
 from numpy import zeros, array
 from foosboard.models import Game, Player
 
 
+# Use
+# sklearn.neighbors.KNeighborsClassifier(15, weights='distance')
+# sklearn.neighbors.KNeighborsClassifier(15, weights='uniform')
+# sklearn.svm.SVC(gamma=0.001, C=100.)
+# for model
 class GamePredictionModel():
 
     def __init__(self):
-        self.model = svm.SVC(gamma=0.001, C=100.)
         players = Player.query.all()
 
         count = 0
@@ -18,24 +22,31 @@ class GamePredictionModel():
 
         self.player_length = count + 1
 
-    def train_model(self):
-        games = Game.query.all()
+    def train_model(self, model):
+        dataset = self.parse_data()
 
-        inputs = []
-        results = []
-
-        for game in games:
-            inputs.append(self.parse_input(game))
-            results.append(self.parse_result(game))
-
-        self.model.fit(array(inputs), array(results))
+        model.fit(array(dataset['inputs']), array(dataset['results']))
 
 
-    def predict(self, game):
+    def predict(self, model, game):
         input = array(self.parse_input(game))
 
-        result = self.model.predict(input)[0]
+        result = model.predict(input)[0]
         return self.interpret_result(result)
+
+
+    def cross_validate(self, model):
+        dataset = self.parse_data()
+
+        kfold = cross_validation.KFold(len(dataset['inputs']), n_folds=3)
+
+        return cross_validation.cross_val_score(
+            model,
+            dataset['inputs'],
+            dataset['results'],
+            cv=kfold,
+            n_jobs=-1
+        )
 
 
     def parse_input(self, game):
@@ -48,6 +59,20 @@ class GamePredictionModel():
         players[self.get_index(game.team2offense_id, 2)] = 1
 
         return players
+
+
+    # Use different data parsers to determine results
+    def parse_data(self):
+        games = Game.query.all()
+
+        inputs = []
+        results = []
+
+        for game in games:
+            inputs.append(self.parse_input(game))
+            results.append(self.parse_result(game))
+
+        return {'inputs': inputs, 'results': results}
 
 
     def parse_result(self, game):
