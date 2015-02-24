@@ -72,7 +72,8 @@ var Game = React.createClass({
           team_2: {
             offense: response.team_2.offense,
             defense: response.team_2.defense
-          }
+          },
+          prediction: response.prediction
         };
 
         _this.setState(gameState);
@@ -116,6 +117,10 @@ var Game = React.createClass({
           <dt>Team 2 Defense</dt>
           <dd>{this.state.team_2.defense}</dd>
         </dl>
+
+        <div className="alert alert-info">
+          Predicted winner: <strong>{this.state.prediction}</strong>
+        </div>
 
         <form ref="scoreForm" onSubmit={this.handleSubmit}>
           <ScoreSelect

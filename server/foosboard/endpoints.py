@@ -1,6 +1,7 @@
 from flask import request, make_response, jsonify
 from flask_cors import cross_origin
 from foosboard.models import Game, Player
+from foosboard.predictions import prediction_model
 from foosboard.repositories import GameRepository
 from foosboard import app, db
 
@@ -24,7 +25,10 @@ def api_player_index():
 def api_update_game(game_id):
     game = Game.query.get(game_id)
 
-    return jsonify(game.serialize())
+    response = game.serialize()
+    response['prediction'] = prediction_model.predict(game)
+
+    return jsonify(response)
 
 
 @cross_origin()

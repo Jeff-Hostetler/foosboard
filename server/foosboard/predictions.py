@@ -1,4 +1,4 @@
-from sklearn import cross_validation
+from sklearn import cross_validation, neighbors
 from numpy import zeros, array
 from foosboard.models import Game, Player
 
@@ -75,7 +75,6 @@ class DataParser():
         self.player_length = count + 1
 
 
-    # Use different data parsers to determine results
     def parse_data(self):
         games = Game.query.all()
 
@@ -110,9 +109,9 @@ class DataParser():
 
     def interpret_result(self, result):
         if result == 1:
-            return "Team 1 will win"
+            return "Team 1"
         else:
-            return "Team 2 will win"
+            return "Team 2"
 
 
     def get_index(self, id, team):
@@ -120,3 +119,10 @@ class DataParser():
             return self.player_id_map[id]
         else:
             return self.player_id_map[id] + self.player_length
+
+
+
+parser = DataParser()
+model = neighbors.KNeighborsClassifier(15, weights='distance')
+prediction_model = PredictionModel(parser, model)
+prediction_model.train_model()
