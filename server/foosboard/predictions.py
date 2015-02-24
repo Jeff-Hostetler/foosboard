@@ -92,10 +92,10 @@ class DataParser():
     def parse_input(self, game):
         players = zeros(2 * self.player_length)
 
-        players[self.get_index(game.team1defense_id, 1)] = -1
+        players[self.get_index(game.team1defense_id, 1)] = 1
         players[self.get_index(game.team1offense_id, 1)] = 1
 
-        players[self.get_index(game.team2defense_id, 2)] = -1
+        players[self.get_index(game.team2defense_id, 2)] = 1
         players[self.get_index(game.team2offense_id, 2)] = 1
 
         return players
