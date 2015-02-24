@@ -8,7 +8,59 @@ from foosboard.models import Game, Player
 # sklearn.neighbors.KNeighborsClassifier(15, weights='uniform')
 # sklearn.svm.SVC(gamma=0.001, C=100.)
 # for model
-class GamePredictionModel():
+
+'''
+Example:
+from foosboard.predictions import DataParser, PredictionModel
+from foosboard.models import Game
+from sklearn import neighbors
+
+dp = DataParser()
+clf = neighbors.KNeighborsClassifier(15, weights='distance')
+pm = PredictionModel(dp, clf)
+pm.cross_validate()
+
+pm.train_model()
+
+games = Game.query.all()
+
+pm.predict(games[0])
+'''
+
+class PredictionModel():
+
+    def __init__(self, parser, model):
+        self.parser = parser
+        self.model = model
+
+    def train_model(self):
+        dataset = self.parser.parse_data()
+
+        self.model.fit(array(dataset['inputs']), array(dataset['results']))
+
+
+    def predict(self, game):
+        input = array(self.parser.parse_input(game))
+
+        result = self.model.predict(input)[0]
+        return self.parser.interpret_result(result)
+
+
+    def cross_validate(self):
+        dataset = self.parser.parse_data()
+
+        kfold = cross_validation.KFold(len(dataset['inputs']), n_folds=3)
+
+        return cross_validation.cross_val_score(
+            self.model,
+            dataset['inputs'],
+            dataset['results'],
+            cv=kfold,
+            n_jobs=-1
+        )
+
+
+class DataParser():
 
     def __init__(self):
         players = Player.query.all()
@@ -21,44 +73,6 @@ class GamePredictionModel():
             count += 1
 
         self.player_length = count + 1
-
-    def train_model(self, model):
-        dataset = self.parse_data()
-
-        model.fit(array(dataset['inputs']), array(dataset['results']))
-
-
-    def predict(self, model, game):
-        input = array(self.parse_input(game))
-
-        result = model.predict(input)[0]
-        return self.interpret_result(result)
-
-
-    def cross_validate(self, model):
-        dataset = self.parse_data()
-
-        kfold = cross_validation.KFold(len(dataset['inputs']), n_folds=3)
-
-        return cross_validation.cross_val_score(
-            model,
-            dataset['inputs'],
-            dataset['results'],
-            cv=kfold,
-            n_jobs=-1
-        )
-
-
-    def parse_input(self, game):
-        players = zeros(2 * self.player_length)
-
-        players[self.get_index(game.team1defense_id, 1)] = -1
-        players[self.get_index(game.team1offense_id, 1)] = 1
-
-        players[self.get_index(game.team2defense_id, 2)] = -1
-        players[self.get_index(game.team2offense_id, 2)] = 1
-
-        return players
 
 
     # Use different data parsers to determine results
@@ -73,6 +87,18 @@ class GamePredictionModel():
             results.append(self.parse_result(game))
 
         return {'inputs': inputs, 'results': results}
+
+
+    def parse_input(self, game):
+        players = zeros(2 * self.player_length)
+
+        players[self.get_index(game.team1defense_id, 1)] = -1
+        players[self.get_index(game.team1offense_id, 1)] = 1
+
+        players[self.get_index(game.team2defense_id, 2)] = -1
+        players[self.get_index(game.team2offense_id, 2)] = 1
+
+        return players
 
 
     def parse_result(self, game):
