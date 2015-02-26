@@ -2,3 +2,4 @@
   applications:
   - name: foosboard-api
     command: python manage.py db upgrade && python app.py
+    buildpack: https://github.com/thenovices/heroku-buildpack-scipy
