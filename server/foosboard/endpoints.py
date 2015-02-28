@@ -5,7 +5,7 @@ from foosboard.models import Game, Player, PredictionModelEntity
 from foosboard.predictions import DataParser, PredictionModel
 from foosboard.repositories import GameRepository
 from foosboard import app, db
-from sklearn import neighbors
+from sklearn.ensemble import RandomForestClassifier
 
 
 @cross_origin()
@@ -94,7 +94,8 @@ def api_show_stats():
 @app.route('/api/model', methods=['POST'])
 def api_train_model():
     parser = DataParser()
-    model = neighbors.KNeighborsClassifier(15, weights='distance')
+
+    model = RandomForestClassifier(n_estimators=10)
     prediction_model = PredictionModel(parser, model)
     prediction_model.train_model()
 

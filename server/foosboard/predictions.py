@@ -1,4 +1,4 @@
-from sklearn import cross_validation, neighbors
+from sklearn import cross_validation
 from numpy import zeros, array
 from foosboard.models import Game, Player
 
