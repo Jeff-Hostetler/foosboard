@@ -1,9 +1,11 @@
 from flask import request, make_response, jsonify
 from flask_cors import cross_origin
-from foosboard.models import Game, Player
-from foosboard.predictions import prediction_model
+from numpy import average
+from foosboard.models import Game, Player, PredictionModelEntity
+from foosboard.predictions import DataParser, PredictionModel
 from foosboard.repositories import GameRepository
 from foosboard import app, db
+from sklearn import neighbors
 
 
 @cross_origin()
@@ -22,10 +24,13 @@ def api_player_index():
 
 @cross_origin()
 @app.route('/api/games/<int:game_id>', methods=['GET'])
-def api_update_game(game_id):
+def api_show_game(game_id):
     game = Game.query.get(game_id)
 
     response = game.serialize()
+
+    prediction_model = PredictionModelEntity.load()
+
     response['prediction'] = prediction_model.predict(game)
 
     return jsonify(response)
@@ -47,7 +52,7 @@ def api_create_game():
 
 @cross_origin()
 @app.route('/api/games/<int:game_id>', methods=['PATCH'])
-def api_show_game(game_id):
+def api_update_game(game_id):
     game = Game.query.get(game_id)
 
     game.team1score = request.json["team1score"]
@@ -84,6 +89,20 @@ def api_show_stats():
             ]
     })
 
+
+@cross_origin()
+@app.route('/api/model', methods=['POST'])
+def api_train_model():
+    parser = DataParser()
+    model = neighbors.KNeighborsClassifier(15, weights='distance')
+    prediction_model = PredictionModel(parser, model)
+    prediction_model.train_model()
+
+    PredictionModelEntity.store(prediction_model)
+
+    return jsonify({'accuracy': average(prediction_model.cross_validate())})
+
+
 @cross_origin()
 @app.errorhandler(400)
 def bad_request(_):
@@ -94,3 +113,4 @@ def bad_request(_):
 @app.errorhandler(404)
 def not_found(_):
     return make_response(jsonify({'error': 'Not found'}), 404)
+

@@ -140,10 +140,3 @@ class DataParser():
             return self.player_id_map[id]
         else:
             return self.player_id_map[id] + self.player_length
-
-
-
-parser = DataParser()
-model = neighbors.KNeighborsClassifier(15, weights='distance')
-prediction_model = PredictionModel(parser, model)
-prediction_model.train_model()

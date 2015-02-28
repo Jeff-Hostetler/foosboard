@@ -1,4 +1,5 @@
 from datetime import datetime
+import pickle
 from foosboard import db
 
 
@@ -66,3 +67,27 @@ class Player(db.Model):
             "id": self.id,
             "nickname": self.nickname
         }
+
+class PredictionModelEntity(db.Model):
+    __tablename__ = 'prediction_model'
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    model_data = db.Column(db.String())
+
+    def __init__(self, model_data):
+        self.model_data = model_data
+
+    @classmethod
+    def store(cls, model):
+        entity = cls(pickle.dumps(model))
+
+        db.session.add(entity)
+        db.session.commit()
+
+
+    @classmethod
+    def load(cls):
+        entity = cls.query.order_by('-id').first()
+        return pickle.loads(entity.model_data)
+
