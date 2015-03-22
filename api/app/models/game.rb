@@ -24,22 +24,14 @@ class Game < ActiveRecord::Base
   end
 
   def self.win_percentage_for_player(player)
-    game_count = games_played(player).count
+    total_games = games_played(player).count
+    win_count = games_won(player).count
 
-    games_won = where("((team_1_defense_id = :player_id OR
-                        team_1_offense_id = :player_id)
-                       AND team_1_score = 5)
-                       OR
-                       ((team_2_defense_id = :player_id OR
-                       team_2_offense_id  = :player_id)
-                       AND team_2_score = 5)",
-                       player_id: player.id).count
-
-                       if game_count.zero?
-                         0
-                       else
-                         games_won * 100 / game_count
-                       end
+    if total_games.zero?
+      0
+    else
+      win_count * 100 / total_games
+    end
   end
 
   private
@@ -69,6 +61,15 @@ class Game < ActiveRecord::Base
            team_1_offense_id = :player_id OR
            team_2_defense_id = :player_id OR
            team_2_offense_id = :player_id",
+           player_id: player.id)
+  end
+
+  def self.games_won(player)
+    where("((team_1_defense_id = :player_id OR
+             team_1_offense_id = :player_id) AND team_1_score = 5)
+           OR
+           ((team_2_defense_id = :player_id OR
+           team_2_offense_id  = :player_id) AND team_2_score = 5)",
            player_id: player.id)
   end
 end
