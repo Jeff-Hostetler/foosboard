@@ -8,15 +8,14 @@ RSpec.describe StatsService do
 
   let(:fake_player) { class_double(Player).as_stubbed_const }
   let(:fake_game) { class_double(Game).as_stubbed_const }
+  let(:sample_player) { FakePlayer.new(id = 123, nickname = "Lazy Laser") }
 
   before do
     allow(fake_game).to receive(:win_percentage_for_player)
     allow(fake_game).to receive(:goals_scored_for_player)
     allow(fake_game).to receive(:goals_against_for_player)
 
-    allow(fake_player).to receive(:all).and_return([
-      FakePlayer.new(id = 123, nickname = "Lazy Laser")
-    ])
+    allow(fake_player).to receive(:all).and_return([sample_player])
   end
 
   it "returns an empty collection when there are no players" do
@@ -40,7 +39,8 @@ RSpec.describe StatsService do
 
     all_stats = StatsService.new.all_stats
 
-    expect(fake_game).to have_received(:win_percentage_for_player).with(123)
+    expect(fake_game).to have_received(:win_percentage_for_player).
+      with(sample_player)
     expect(all_stats.first[:win_percentage]).to eq 100
   end
 
@@ -49,7 +49,8 @@ RSpec.describe StatsService do
 
     all_stats = StatsService.new.all_stats
 
-    expect(fake_game).to have_received(:goals_scored_for_player).with(123)
+    expect(fake_game).to have_received(:goals_scored_for_player).
+      with(sample_player)
     expect(all_stats.first[:goals_scored]).to eq 42
   end
 
@@ -58,7 +59,8 @@ RSpec.describe StatsService do
 
     all_stats = StatsService.new.all_stats
 
-    expect(fake_game).to have_received(:goals_against_for_player).with(123)
+    expect(fake_game).to have_received(:goals_against_for_player).
+      with(sample_player)
     expect(all_stats.first[:goals_against]).to eq 7
   end
 end

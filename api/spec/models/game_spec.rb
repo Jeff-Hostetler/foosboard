@@ -33,8 +33,8 @@ RSpec.describe Game do
       team_2_defense_id: player_2.id
     )
 
-    expect(Game.goals_scored_for_player(player_1.id)).to eq 5
-    expect(Game.goals_scored_for_player(player_2.id)).to eq 3
+    expect(Game.goals_scored_for_player(player_1)).to eq 5
+    expect(Game.goals_scored_for_player(player_2)).to eq 3
   end
 
   it "counts the goals against a player on defense" do
@@ -51,8 +51,8 @@ RSpec.describe Game do
       team_2_defense_id: player_2.id
     )
 
-    expect(Game.goals_against_for_player(player_1.id)).to eq 5
-    expect(Game.goals_against_for_player(player_2.id)).to eq 2
+    expect(Game.goals_against_for_player(player_1)).to eq 5
+    expect(Game.goals_against_for_player(player_2)).to eq 2
   end
 
   it "calculates the win percentage for a player" do
@@ -80,7 +80,7 @@ RSpec.describe Game do
     )
 
     expect(
-      Game.win_percentage_for_player(player_id = player_1.id)
+      Game.win_percentage_for_player(player_id = player_1)
     ).to eq 50
   end
 
@@ -88,7 +88,7 @@ RSpec.describe Game do
     player_1 = Player.create(nickname: "Fuzzy Pants")
 
     expect(
-      Game.win_percentage_for_player(player_id = player_1.id)
+      Game.win_percentage_for_player(player_id = player_1)
     ).to eq 0
   end
 end
