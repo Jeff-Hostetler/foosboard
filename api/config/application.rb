@@ -11,6 +11,7 @@ Bundler.setup(*Rails.groups)
 # Enable Pry as default for `rails c`
 require "pry-rails"
 require "rack/cors"
+require "active_model_serializers"
 
 module Api
   class Application < Rails::Application
@@ -21,7 +22,11 @@ module Api
       allow do
         origins("*")
 
-        resource("*", headers: :any, methods: [:get, :post, :delete, :patch, :options])
+        resource("*", headers: :any, methods: [:get,
+                                               :post,
+                                               :delete,
+                                               :patch,
+                                               :options])
       end
     end
   end

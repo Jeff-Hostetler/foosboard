@@ -14,9 +14,10 @@ RSpec.describe "Players API" do
       expect(response.status).to eq 200
 
       response_body = JSON.parse(response.body, symbolize_names: true)
+      first_player = response_body[:players].first
 
-      expect(response_body.first[:id]).to eq player.id
-      expect(response_body.first[:nickname]).to eq "Person McSplashyPants"
+      expect(first_player[:id]).to eq player.id
+      expect(first_player[:nickname]).to eq "Person McSplashyPants"
     end
   end
 end

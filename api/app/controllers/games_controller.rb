@@ -19,10 +19,12 @@ class GamesController < ApplicationController
   private
 
   def game_params
-    params.permit(:team_1_defense_id,
-                  :team_1_offense_id,
-                  :team_2_offense_id,
-                  :team_2_defense_id)
+    {
+      team_1_defense_id: params[:team_1][:defense][:id],
+      team_1_offense_id: params[:team_1][:offense][:id],
+      team_2_offense_id: params[:team_2][:offense][:id],
+      team_2_defense_id: params[:team_2][:defense][:id],
+    }
   end
 
   def game_update_params
