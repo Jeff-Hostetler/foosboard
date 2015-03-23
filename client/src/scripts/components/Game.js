@@ -43,12 +43,12 @@ var Game = React.createClass({
       team_1_score: 0,
       team_2_score: 0,
       team_1: {
-        offense: "",
-        defense: ""
+        offense: {},
+        defense: {}
       },
       team_2: {
-        offense: "",
-        defense: ""
+        offense: {},
+        defense: {}
       }
     };
   },
@@ -85,8 +85,8 @@ var Game = React.createClass({
 
     var _this = this,
       gameScore = {
-        team1score: this.refs.team1score.state.finalScore,
-        team2score: this.refs.team2score.state.finalScore
+        team_1_score: this.refs.team1score.state.finalScore,
+        team_2_score: this.refs.team2score.state.finalScore
       };
 
     console.log(gameScore);
@@ -106,16 +106,16 @@ var Game = React.createClass({
       <div>
         <dl>
           <dt>Team 1 Defense</dt>
-          <dd>{this.state.team_1.defense}</dd>
+          <dd>{this.state.team_1.defense.nickname}</dd>
 
           <dt>Team 1 Offense</dt>
-          <dd>{this.state.team_1.offense}</dd>
+          <dd>{this.state.team_1.offense.nickname}</dd>
 
           <dt>Team 2 Offense</dt>
-          <dd>{this.state.team_2.offense}</dd>
+          <dd>{this.state.team_2.offense.nickname}</dd>
 
           <dt>Team 2 Defense</dt>
-          <dd>{this.state.team_2.defense}</dd>
+          <dd>{this.state.team_2.defense.nickname}</dd>
         </dl>
 
         <div className="alert alert-info">

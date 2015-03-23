@@ -17,7 +17,7 @@ var GameList = React.createClass({
 
     GameService.getList()
       .then(function (response) {
-        _this.setState({games: response.games});
+        _this.setState({games: response});
       });
   },
 
@@ -26,12 +26,12 @@ var GameList = React.createClass({
       return gameData.map(function (game, index) {
         return (
           <tr key={index}>
-            <td className={isWinner(game.team_1_score) ? "info" : ""}>{game.team_1.defense}</td>
-            <td className={isWinner(game.team_1_score) ? "info" : ""}>{game.team_1.offense}</td>
+            <td className={isWinner(game.team_1_score) ? "info" : ""}>{game.team_1.defense.nickname}</td>
+            <td className={isWinner(game.team_1_score) ? "info" : ""}>{game.team_1.offense.nickname}</td>
             <td className={isWinner(game.team_1_score) ? "info" : ""}>{game.team_1_score}</td>
             <td className={isWinner(game.team_2_score) ? "info" : ""}>{game.team_2_score}</td>
-            <td className={isWinner(game.team_2_score) ? "info" : ""}>{game.team_2.offense}</td>
-            <td className={isWinner(game.team_2_score) ? "info" : ""}>{game.team_2.defense}</td>
+            <td className={isWinner(game.team_2_score) ? "info" : ""}>{game.team_2.offense.nickname}</td>
+            <td className={isWinner(game.team_2_score) ? "info" : ""}>{game.team_2.defense.nickname}</td>
           </tr>
         );
       });

@@ -40,10 +40,14 @@ var GameForm = React.createClass({
     e.preventDefault();
 
     var newGame = {
-      team1defense_id: this.refs.team1defense.state.value,
-      team1offense_id: this.refs.team1offense.state.value,
-      team2offense_id: this.refs.team2offense.state.value,
-      team2defense_id: this.refs.team2defense.state.value
+      team_1: {
+        defense: {id: this.refs.team_1_defense.state.value},
+        offense: {id: this.refs.team_1_offense.state.value}
+      },
+      team_2: {
+        offense: {id: this.refs.team_2_offense.state.value},
+        defense: {id: this.refs.team_2_defense.state.value}
+      }
     },
       _this = this;
 
@@ -73,26 +77,26 @@ var GameForm = React.createClass({
       <form ref="gameForm" className="form-horizontal" onSubmit={this.handleSubmit}>
         <PlayerSelect
           allPlayers={this.state.players}
-          ref="team1defense"
-          name='team1defense'
+          ref="team_1_defense"
+          name='team_1_defense'
           label='Team 1 Defense' />
 
         <PlayerSelect
           allPlayers={this.state.players}
-          ref="team1offense"
-          name='team1offense'
+          ref="team_1_offense"
+          name='team_1_offense'
           label='Team 1 Offense' />
 
         <PlayerSelect
           allPlayers={this.state.players}
-          ref="team2offense"
-          name='team1defense'
+          ref="team_2_offense"
+          name='team_1_defense'
           label='Team 2 Offense' />
 
         <PlayerSelect
           allPlayers={this.state.players}
-          ref="team2defense"
-          name='team1defense'
+          ref="team_2_defense"
+          name='team_1_defense'
           label='Team 2 Defense' />
 
         <div className="form-group">

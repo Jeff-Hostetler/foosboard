@@ -11,7 +11,7 @@ var GameService = {
       .get(url)
       .end(function (response) {
         if (response.status === 200) {
-          deferred.resolve(response.body);
+          deferred.resolve(response.body.game);
         } else {
           deferred.reject(response.body);
         }
@@ -29,7 +29,7 @@ var GameService = {
       .send(score)
       .end(function (response) {
         if (response.status === 200) {
-          deferred.resolve(response.body);
+          deferred.resolve(response.body.game);
         } else {
           deferred.reject(response.body);
         }
@@ -63,7 +63,7 @@ var GameService = {
       .get(url)
       .end(function (response) {
         if (response.status === 200) {
-          deferred.resolve(response.body);
+          deferred.resolve(response.body.games);
         } else {
           deferred.reject(response.body);
         }
@@ -98,7 +98,7 @@ var GameService = {
       .send(newGame)
       .end(function (response) {
         if (response.status === 201) {
-          deferred.resolve(response.body);
+          deferred.resolve(response.body.game);
         } else {
           deferred.reject(response.body);
         }
