@@ -56,6 +56,49 @@ RSpec.describe "Games API" do
     end
   end
 
+  describe "GET /games/:id" do
+    it "returns a game record" do
+      first_player = Player.create(nickname: "Single Page App")
+      second_player = Player.create(nickname: "Distributed System")
+
+      game = Game.create(
+        team_1_score: 0,
+        team_2_score: 5,
+        in_progress: false,
+        team_1_defense_id: first_player.id,
+        team_1_offense_id: first_player.id,
+        team_2_offense_id: second_player.id,
+        team_2_defense_id: second_player.id
+      )
+
+      get "/games/#{game.id}", query = {}, accept_json
+
+      expect(response.status).to eq 200
+
+      response_body = JSON.parse(response.body, symbolize_names: true)
+      returned_game = response_body[:game]
+
+      expect(returned_game[:id]).to eq game.id
+      expect(returned_game[:team_1_score]).to eq 0
+      expect(returned_game[:team_2_score]).to eq 5
+      expect(returned_game[:in_progress]).to eq false
+
+      expect(returned_game[:team_1][:defense][:id]).to eq first_player.id
+      expect(returned_game[:team_1][:offense][:id]).to eq first_player.id
+      expect(returned_game[:team_2][:offense][:id]).to eq second_player.id
+      expect(returned_game[:team_2][:defense][:id]).to eq second_player.id
+
+      expect(returned_game[:team_1][:defense][:nickname]).
+        to eq "Single Page App"
+      expect(returned_game[:team_1][:offense][:nickname]).
+        to eq "Single Page App"
+      expect(returned_game[:team_2][:offense][:nickname]).
+        to eq "Distributed System"
+      expect(returned_game[:team_2][:defense][:nickname]).
+        to eq "Distributed System"
+    end
+  end
+
   describe "POST /games" do
     it "creates a game" do
       first_player = Player.create(nickname: "Single Page App")

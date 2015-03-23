@@ -3,6 +3,10 @@ class GamesController < ApplicationController
     render json: Game.all
   end
 
+  def show
+    render json: Game.find(params[:id])
+  end
+
   def create
     render json: Game.create(game_params.merge(in_progress: true)),
       status: :created
