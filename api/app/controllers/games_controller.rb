@@ -1,6 +1,9 @@
 class GamesController < ApplicationController
   def index
-    render json: Game.all
+    render json: Game.includes(:team_1_defense,
+                               :team_1_offense,
+                               :team_2_defense,
+                               :team_2_offense)
   end
 
   def show

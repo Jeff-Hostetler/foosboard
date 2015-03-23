@@ -8,15 +8,15 @@ class GameSerializer < ActiveModel::Serializer
 
   def team_1
     {
-      defense: Player.find(object.team_1_defense_id),
-      offense: Player.find(object.team_1_offense_id)
+      defense: object.team_1_defense,
+      offense: object.team_1_offense
     }
   end
 
   def team_2
     {
-      defense: Player.find(object.team_2_defense_id),
-      offense: Player.find(object.team_2_offense_id)
+      defense: object.team_2_defense,
+      offense: object.team_2_offense
     }
   end
 end

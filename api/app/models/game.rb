@@ -1,4 +1,9 @@
 class Game < ActiveRecord::Base
+  belongs_to :team_1_defense, class_name: "Player"
+  belongs_to :team_1_offense, class_name: "Player"
+  belongs_to :team_2_offense, class_name: "Player"
+  belongs_to :team_2_defense, class_name: "Player"
+
   def self.in_progress?
     where(in_progress: true).count > 0
   end
