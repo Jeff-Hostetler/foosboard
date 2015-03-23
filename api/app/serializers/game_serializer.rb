@@ -8,15 +8,15 @@ class GameSerializer < ActiveModel::Serializer
 
   def team_1
     {
-      defense: object.team_1_defense,
-      offense: object.team_1_offense
+      defense: PlayerSerializer.new(object.team_1_defense),
+      offense: PlayerSerializer.new(object.team_1_offense)
     }
   end
 
   def team_2
     {
-      defense: object.team_2_defense,
-      offense: object.team_2_offense
+      defense: PlayerSerializer.new(object.team_2_defense),
+      offense: PlayerSerializer.new(object.team_2_offense)
     }
   end
 end
