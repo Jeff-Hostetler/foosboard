@@ -29,26 +29,6 @@ class Game(db.Model):
         self.team1offense_id = team1offense_id
         self.inProgress = True
 
-    def has_invalid_score(self):
-        return self.team1score == 5 or self.team2score == 5
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "team_1_score": self.team1score,
-            "team_2_score": self.team2score,
-            "team_1": {
-                "offense": Player.query.get(self.team1offense_id).nickname,
-                "defense": Player.query.get(self.team1defense_id).nickname
-            },
-            "team_2": {
-                "offense": Player.query.get(self.team2offense_id).nickname,
-                "defense": Player.query.get(self.team2defense_id).nickname
-            },
-            "in_progress": self.inProgress
-        }
-
-
 class Player(db.Model):
     __tablename__ = 'players'
 
@@ -61,12 +41,6 @@ class Player(db.Model):
                  nickname):
         self.created_at = datetime.utcnow()
         self.nickname = nickname
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "nickname": self.nickname
-        }
 
 class PredictionModelEntity(db.Model):
     __tablename__ = 'prediction_model'

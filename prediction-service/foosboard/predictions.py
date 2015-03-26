@@ -84,8 +84,6 @@ class DataParser():
         for game in games:
             inputs.append(self.parse_input(game))
             results.append(self.parse_result(game))
-            inputs.append(self.parse_symmetric_input(game))
-            results.append(self.parse_symmetric_result(game))
 
         return {'inputs': inputs, 'results': results}
 
@@ -102,30 +100,11 @@ class DataParser():
         return players
 
 
-    def parse_symmetric_input(self, game):
-        players = zeros(2 * self.player_length)
-
-        players[self.get_index(game.team1defense_id, 2)] = 1
-        players[self.get_index(game.team1offense_id, 2)] = 1
-
-        players[self.get_index(game.team2defense_id, 1)] = 1
-        players[self.get_index(game.team2offense_id, 1)] = 1
-
-        return players
-
-
     def parse_result(self, game):
         if game.team1score > game.team2score:
             return 1
         else:
             return -1
-
-
-    def parse_symmetric_result(self, game):
-        if game.team1score > game.team2score:
-            return -1
-        else:
-            return 1
 
 
     def interpret_result(self, result):
