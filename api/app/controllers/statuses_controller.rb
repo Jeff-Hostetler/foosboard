@@ -1,6 +1,11 @@
 class StatusesController < ApplicationController
   def show
-    status = Game.in_progress? ? "in progress" : "open"
+    game = Game.last
+    status = if game && game.in_progress?
+               "in progress"
+             else
+               "open"
+             end
 
     render json: {status: status}
   end
