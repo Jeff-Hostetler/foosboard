@@ -5,7 +5,7 @@ var interval;
 
 var Status = React.createClass({
   getInitialState: function () {
-    return {status: 'Open'};
+    return {status: 'open'};
   },
 
   componentDidMount: function () {
